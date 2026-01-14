@@ -20,6 +20,7 @@ class MealAnalysis(models.Model):
     meal_date = models.DateField(auto_now_add=True)
 
     class Meta:
+        managed = False
         verbose_name_plural = "Meal Analyses"
         db_table = 'meal_analysis'
 
@@ -39,6 +40,7 @@ class RequiredDietLog(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
+        managed = False
         unique_together = ('user', 'diet_date')
         db_table = 'required_diet_logs'
 
@@ -52,6 +54,10 @@ class WaterIntakeLog(models.Model):
     image_path = models.CharField(max_length=255, null=True, blank=True)
     water_time = models.DateTimeField(null=True, blank=True)
     bottle_type = models.CharField(max_length=50, null=True, blank=True)
+
+    class Meta:
+        managed = False
+        db_table = 'water_intake_logs'
 
     def __str__(self):
         return f"{self.water_ml}ml - {self.user.username}"

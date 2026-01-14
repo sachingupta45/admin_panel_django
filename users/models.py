@@ -1,6 +1,19 @@
 from django.db import models
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
-class User(models.Model):
+class UserManager(BaseUserManager):
+    def create_user(self, email, username, password=None, **extra_fields):
+        if not email:
+            raise ValueError('The Email field must be set')
+        user = self.model(email=self.normalize_email(email), username=username, **extra_fields)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, email, username, password=None, **extra_fields):
+        return self.create_user(email, username, password, **extra_fields)
+
+class User(AbstractBaseUser):
     ROLE_CHOICES = [
         ('Batsman', 'Batsman'),
         ('Bowler', 'Bowler'),
@@ -65,8 +78,32 @@ class User(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
 
+    objects = UserManager()
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['username']
+
     class Meta:
+        managed = False
         db_table = 'users'
 
     def __str__(self):
         return f"{self.username} ({self.role})"
+
+    @property
+    def is_staff(self):
+        return True
+
+    @property
+    def is_superuser(self):
+        return True
+
+    @property
+    def is_active(self):
+        return self.status == 'active'
+
+    def has_perm(self, perm, obj=None):
+        return True
+
+    def has_module_perms(self, app_label):
+        return True

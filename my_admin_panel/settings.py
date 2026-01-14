@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 
 from pathlib import Path
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -87,6 +88,9 @@ DATABASES = {
 }
 
 
+
+# AUTH_USER_MODEL = 'users.User'
+
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
 
@@ -129,8 +133,13 @@ JAZZMIN_SETTINGS = {
     "site_header": "Cricket Fitness",
     "site_brand": "Admin Panel",
     "welcome_sign": "Welcome to Cricket Fitness Admin Panel",
-    "copyright": "Cricket Fitness Ltd",
+    "copyright": "Cricket Fitness Ltd | Version 1.0.0",
     "user_avatar": None,
+     # Logo to use for your site, must be present in static files, used for login form logo (defaults to site_logo)
+    "login_logo": None,
+
+    # Logo to use for login form in dark themes (defaults to login_logo)
+    "login_logo_dark": None,
     "topmenu_links": [
         {"name": "Home", "url": "admin:index", "permissions": ["auth.view_user"]},
         {"model": "users.User"},
@@ -147,6 +156,8 @@ JAZZMIN_SETTINGS = {
     },
     "default_icon_parents": "fas fa-chevron-circle-right",
     "default_icon_children": "fas fa-circle",
+    "hide_apps": ["auth"],
+    "show_ui_builder": False,
 }
 
 JAZZMIN_UI_TWEAKS = {
