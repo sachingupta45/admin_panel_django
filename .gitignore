@@ -1,0 +1,37 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environment
+venv/
+env/
+ENV/
+.env
+
+# Database Sensitive Data (Crucial for Postgres/Django)
+# Do not commit your secret settings or local db configs
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+.secret_key
+
+# Django specific
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+media/
+staticfiles/
+
+# OS/IDE specific
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# PostgreSQL / pgAdmin specific
+# If you export data to CSV or SQL inside the project folder
+*.sql
+*.csv
+*.tar
